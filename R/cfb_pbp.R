@@ -1,0 +1,10 @@
+tictoc::tic()
+pbp <- data.frame()
+seasons <- 2014:cfbfastR:::most_recent_season()
+progressr::with_progress({
+  future::plan("multisession")
+  cfb_pbp <- cfbfastR::load_cfb_pbp(seasons)
+})
+tictoc::toc()
+glue::glue("College Football play-by-play data from {length(unique(cfb_pbp$game_id))} games.")
+dplyr::glimpse(cfb_pbp[1:40])
