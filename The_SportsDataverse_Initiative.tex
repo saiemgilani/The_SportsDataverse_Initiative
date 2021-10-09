@@ -59,13 +59,13 @@ The \href{https://sportsdataverse.org}{SportsDataverse} is a broader concept to 
 
 The SportsDataverse developer group has created a collection of software packages for sports data with modules written in Python, R, and Node.js. Collectively, the SportsDataverse packages cover 18 sports leagues worth of data, including 11+ men's sports and 7+ women's sports with plans for expansion. 
 
-Several of the packages written are directly modeled on the data engineering efforts of the \texttt{nflfastR} team, including \texttt{cfbfastR(py)}\cite{gilani_etal_cfbfastr_2021}\cite{gilani_cfbfastRpy_2021}, \texttt{hoopR(py)}\cite{gilani_hoopRpy_2021}\cite{gilani_cfbfastRpy_2021}, and \texttt{wehoop(py)}\cite{hutchingson_gilani_2021}\cite{gilani_wehooppy_2021}. These packages allow for the loading of play-by-play and box score data for 16+ seasons of data for NBA, WNBA, men's and women's college basketball, and college football with parallel processing and progress updates. This saves the user countless hours of setting up a web scrape, setting up a cron job to schedule automated data extracts and allows them to spend more time building their project rather than building the data infrastructure and pipeline from scratch.  
+Several of the packages written are directly modeled on the data engineering efforts of the \texttt{nflfastR} team, including \texttt{cfbfastR(py)}\cite{gilani_etal_cfbfastr_2021}\cite{gilani_cfbfastRpy_2021}, \texttt{hoopR(py)}\cite{gilani_hoopR_2021}\cite{gilani_hoopRpy_2021}, and \texttt{wehoop(py)}\cite{hutchingson_gilani_2021}\cite{gilani_wehooppy_2021}. These packages allow for the loading of play-by-play and box score data for 16+ seasons of data for NBA, WNBA, men's and women's college basketball, and college football with parallel processing and progress updates. This saves the user countless hours of setting up a web scrape, setting up a cron job to schedule automated data extracts and allows them to spend more time building their project rather than building the data infrastructure and pipeline from scratch.  
 
 \section{Data and Programming Language Considerations}
 The programming languages of Python, R and Node.js were chosen for their widespread usage among the data science, sports analytics, and application development communities. Though there is no current intention to extend to more languages, the data repositories made available through the use of the existing packages can be accessed via your preferred language of choice as painlessly as downloading any file from a URL would be. Most data are available in multiple formats of \texttt{CSV}, \texttt{Rds}, \texttt{JSON} or \texttt{Parquet} for ease of inter-language use. Among the goals of the SportsDataverse is to flatten the learning curve the average user has to go through to get access to high quality open-source sports data and analytics. While the utility building and function packaging portion of the project is a "work in progress", we have successfully created an exceptional collection of open-source sports data repositories on GitHub. For example, from the packages I directly contribute to, we have generated \textbf{over 250 gigabytes of data} in the aforementioned formats for use in loading and reference across the SportsDataverse. 
 
-\section{R Packages}
-While there are a number of R packages within the SportsDataverse, for the sake of brevity, I will briefly discuss three in this paper -- \texttt{cfbfastR} for college football, \texttt{hoopR} for NBA and men's college basketball, and \texttt{wehoop} for WNBA and women's college basketball coverage. Each package has the ability to load 16+ seasons of play-by-play data for each sport covered, from which users can then create their own processing pipeline for their own analyses. Additionally, each package also allows for access to live game data through access to ESPN's content delivery networks (CDN) and application programming interfaces (API). 
+\section{Packages}
+While there are a number of R packages within the SportsDataverse, for the sake of brevity, I will briefly discuss three in this paper -- \texttt{cfbfastR} for college football, \texttt{hoopR} for NBA and men's college basketball, and \texttt{wehoop} for WNBA and women's college basketball coverage. For a thorough covering of the documentation for each of the packages and their functionalities, please refer to \ref{tbl:sdvr} for the R packages, \ref{tbl:sdvpy} for the Python packages, and \ref{tbl:sdvjs} for the Node.js modules. Each package has the ability to load 16+ seasons of play-by-play data for each sport covered, from which users can then create their own processing pipeline for their own analyses. Additionally, each package also allows for access to live game data through access to ESPN's content delivery networks (CDN) and application programming interfaces (API). 
 
 \subsection{Package Installations}
 The packages listed above are being prepared for submission to CRAN (the Comprehensive R Archive Network) and thus must be installed from GitHub. I prefer the \texttt{pacman} installation method as follows:
@@ -81,6 +81,7 @@ if (!requireNamespace('pacman', quietly = TRUE)){
   install.packages('pacman')
 }
 pacman::p_load_current_gh("saiemgilani/cfbfastR", "saiemgilani/hoopR", "saiemgilani/wehoop")
+pacman::p_load(dplyr, ggplot2, janitor, forcats, ggchicklet, paletteer, prismatic, scales)
 
 \end{minted}
 
@@ -89,8 +90,72 @@ pacman::p_load_current_gh("saiemgilani/cfbfastR", "saiemgilani/hoopR", "saiemgil
 \subsubsection{How it Started -- \texttt{cfbscrapR}}
 The initial origin of this package was to provide the collegiate equivalent of the \texttt{nflscrapR} package, producing expected points metrics and win probability models. This was accomplished successfully in the \href{https://www.github.com/saiemgilani/cfbscrapR}{\texttt{cfbscrapR}}-era\cite{subbiah_gilani_fleming_2020} of the package. While \texttt{cfbfastR} is the successor of the \texttt{cfbscrapR} package, the packages are largely the same, with a handful of extra features. 
 \subsubsection{College Football Data API}
-\texttt{cfbfastR} is the unofficial R client for the \href{CollegeFootballData.com}{https://www.CollegeFootballData.com} API, a resource provided by Bill Radjewski, which allows programmatic access a database with a number of views for users to query with a free API key\cite{radjewski_2016}. 
+The \href{CollegeFootballData.com}{https://www.CollegeFootballData.com} API is a resource provided by Bill Radjewski, which allows programmatic access to a database with a number of views for users to query with a free API key\cite{radjewski_2016}. As of \texttt{cfbfastR} version 1.5.2, the package exports 67 functions. The bulk (\~49) of the functions within the package serve as the unofficial R API client for the College Football Data API and those functions' names begin with \texttt{cfbd\_}.
+\subsubsection{Play-by-Play with Expected Points and Win Probability}
 
+\usemintedstyle{friendly}
+\begin{minted}
+[
+baselinestretch=1.2,
+bgcolor=offwhite,
+fontsize=\footnotesize
+]
+{R}
+tictoc::tic()
+pbp <- data.frame()
+seasons <- 2014:cfbfastR:::most_recent_season()
+progressr::with_progress({
+future::plan("multisession")
+  cfb_pbp <- cfbfastR::load_cfb_pbp(seasons)
+})
+tictoc::toc()
+glue::glue("{nrow(cfb_pbp)} rows of college football play-by-play data from {length(unique(cfb_pbp$game_id))} games.")
+dplyr::glimpse(cfb_pbp[1:40])
+## 1120377 rows of college football play-by-play data from 6109 games.
+# Rows: 1,120,377
+# Columns: 40
+#$ year               <dbl> 2014, 2014, 2014, 2014, 2014, 2014, 2014, 201~
+#$ week               <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+#$ id_play            <dbl> 4.005476e+17, 4.005476e+17, 4.005476e+17, 4.0~
+#$ game_id            <int> 400547640, 400547640, 400547640, 400547640, 4~
+#$ game_play_number   <dbl> 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 11, 12,~
+#$ half_play_number   <dbl> 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 11, 12,~
+#$ drive_play_number  <dbl> 1, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 3, 4, 1, ~
+#$ pos_team           <chr> "Temple", "Temple", "Temple", "Temple", "Temp~
+#$ def_pos_team       <chr> "Vanderbilt", "Vanderbilt", "Vanderbilt", "Va~
+#$ pos_team_score     <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+#$ def_pos_team_score <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+#$ half               <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+#$ period             <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+#$ clock.minutes      <int> 14, 14, 14, 14, 13, 13, 12, 12, 12, 12, 11, 1~
+#$ clock.seconds      <int> 55, 55, 45, 20, 50, 25, 58, 50, 7, 0, 20, 40,~
+#$ play_type          <chr> "Kickoff Return (Offense)", "Penalty", "Pass ~
+#$ play_text          <chr> "Hayden Lekacz kickoff for 64 yds , Khalif He~
+#$ down               <dbl> 1, 1, 1, 2, 3, 1, 2, 3, 4, 1, 2, 3, 4, 4, 1, ~
+#$ distance           <dbl> 10, 10, 15, 12, 7, 10, 8, 8, 3, 10, 7, 3, 7, ~
+#$ yards_to_goal      <dbl> 65, 81, 86, 83, 78, 70, 68, 68, 63, 72, 69, 6~
+#$ yards_gained       <dbl> 18, -5, 3, 5, 8, 2, 0, 5, 8, 3, 4, -4, 0, 0, ~
+#$ EPA                <dbl> -0.565383839, -0.469578030, -0.484324992, -0.~
+#$ ep_before          <dbl> 0.8358481, 0.2704643, -0.4884171, -0.9727421,~
+#$ ep_after           <dbl> 0.2704643, -0.1991138, -0.9727421, -1.1872586~
+#$ wpa                <dbl> -0.0224244, -0.0271206, -0.0118346, -0.000090~
+#$ wp_before          <dbl> 0.4919244, 0.4695000, 0.4423794, 0.4305448, 0~
+#$ wp_after           <dbl> 0.4695000, 0.4423794, 0.4305448, 0.4304547, 0~
+#$ def_wp_before      <dbl> 0.5080756, 0.5305000, 0.5576206, 0.5694552, 0~
+#$ def_wp_after       <dbl> 0.5305000, 0.5576206, 0.5694552, 0.5695453, 0~
+#$ penalty_detail     <chr> NA, "False Start", NA, NA, NA, NA, NA, NA, NA~
+#$ yds_penalty        <dbl> NA, -5, NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+#$ penalty_1st_conv   <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FAL~
+#$ new_series         <dbl> 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, ~
+#$ firstD_by_kickoff  <dbl> 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+#$ firstD_by_poss     <dbl> 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, ~
+#$ firstD_by_penalty  <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+#$ firstD_by_yards    <dbl> 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+#$ def_EPA            <dbl> 0.565383839, 0.469578030, 0.484324992, 0.2145~
+#$ home_EPA           <dbl> 0.565383839, 0.469578030, 0.484324992, 0.2145~
+#$ away_EPA           <dbl> -0.565383839, -0.469578030, -0.484324992, -0.~
+
+\end{minted}
 \subsection{hoopR}
 \usemintedstyle{friendly}
 \begin{minted}
@@ -196,7 +261,7 @@ progressr::with_progress({
 })
 tictoc::toc()
 ## 8.06 sec elapsed 
-glue::glue("{nrow(wnba_team_box)} rows of WNBA team boxscore data from {length(unique(wnba_team_box#$game_id))} games.")
+glue::glue("{nrow(wnba_team_box)} rows of WNBA team boxscore data from {length(unique(wnba_team_box\$game_id))} games.")
 ## 8624 rows of WNBA team boxscore data from 4312 games.
 \end{minted}
 
@@ -217,7 +282,7 @@ progressr::with_progress({
 })
 tictoc::toc()
 ## 8.06 sec elapsed 
-glue::glue("{nrow(wnba_player_box)} rows of WNBA player boxscore data from {length(unique(wnba_player_box#$game_id))} games.")
+glue::glue("{nrow(wnba_player_box)} rows of WNBA player boxscore data from {length(unique(wnba_player_box\$game_id))} games.")
 ## 8624 rows of WNBA player boxscore data from 4312 games.
 \end{minted}
 
