@@ -7,4 +7,4 @@ progressr::with_progress({
 })
 tictoc::toc()
 glue::glue("College Football play-by-play data from {length(unique(cfb_pbp$game_id))} games.")
-dplyr::glimpse(cfb_pbp[1:40])
+dplyr::glimpse(cfb_pbp[1:27])

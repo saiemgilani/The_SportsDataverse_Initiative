@@ -1,7 +1,6 @@
-
+source("R/hoopR_utils.R")
 pacman::p_load(dplyr, ggplot2, janitor, forcats,
                ggchicklet, paletteer, prismatic, scales)
-
 # Get and filter data to top 30 players in FG3A ----
 fg3a_leaders <- hoopR::nba_leaguedashplayerstats(season="2020-21")$LeagueDashPlayerStats
 
@@ -17,43 +16,27 @@ shot_clock_opts <- c("24-22", "22-18+Very+Early", "18-15+Early", "15-7+Average",
 
 shot_clock_range_df <- purrr::map_df(shot_clock_opts, function(.x){
   return(data.frame(shot_clock_range=.x,
-    hoopR::nba_leaguedashplayerptshot(shot_clock_range=.x)$LeagueDashPTShots))
+    hoopR::nba_leaguedashplayerptshot(shot_clock_range=.x, season="2020-21")$LeagueDashPTShots))
 })
 
 shot_clock_range_df <- shot_clock_range_df %>% 
   janitor::clean_names() %>% 
   dplyr::select(player_id, player_name, fg3m, fg3a, shot_clock_range)
 ## Clean the shot_clock_range variable ----
-shot_clock_range_df <- shot_clock_range_df %>% 
-  dplyr::mutate(
-    fg3m=as.numeric(.data$fg3m),
-    fg3a=as.numeric(.data$fg3a),
-    shot_clock_range = dplyr::case_when(
-      .data$shot_clock_range == "24-22" ~ "22-24", 
-      .data$shot_clock_range == "22-18+Very+Early" ~ "18-22", 
-      .data$shot_clock_range == "18-15+Early" ~ "15-18", 
-      .data$shot_clock_range == "15-7+Average" ~ "7-15", 
-      .data$shot_clock_range == "7-4+Late" ~ "4-7", 
-      .data$shot_clock_range == "4-0+Very+Late" ~ "0-4",))
+shot_clock_range_df <- clean_shot_clock_range(shot_clock_range_df)
 
-shot_clock_range_df <- shot_clock_range_df %>% 
-  dplyr::filter(.data$player_id %in% fg3a_leaders$player_id)
-
-shot_clock_range_df$shot_clock_range <- as.factor(shot_clock_range_df$shot_clock_range)
-shot_clock_range_df$shot_clock_range <- factor(shot_clock_range_df$shot_clock_range, 
-                                               levels = c("22-24", "18-22", "15-18", "7-15", "4-7", "0-4"))
 ## Create shot clock range FG3A frequency ----
 shot_clock_range_df <- shot_clock_range_df %>% 
-  dplyr::group_by(player_name, player_id) %>% 
-  dplyr::mutate(shotclock_freq = fg3a / sum(fg3a)) %>% 
+  dplyr::group_by(.data$player_name, .data$player_id) %>% 
+  dplyr::mutate(shotclock_freq = .data$fg3a / sum(.data$fg3a)) %>% 
   dplyr::ungroup()
 ## Create combined text labels for the ranges -----
 shot_clock_range_df <- shot_clock_range_df %>% 
   dplyr::mutate(
     shotclock_cat = NA, 
-    shotclock_cat = ifelse(.data$shot_clock_range %in% c("0-4", "4-7"), "Late", shotclock_cat), 
-    shotclock_cat = ifelse(.data$shot_clock_range %in% c("15-18", "7-15"), "Average", shotclock_cat), 
-    shotclock_cat = ifelse(.data$shot_clock_range %in% c("22-24", "18-22"), "Early", shotclock_cat)) %>% 
+    shotclock_cat = ifelse(.data$shot_clock_range %in% c("0-4", "4-7"), "Late", .data$shotclock_cat), 
+    shotclock_cat = ifelse(.data$shot_clock_range %in% c("15-18", "7-15"), "Average", .data$shotclock_cat), 
+    shotclock_cat = ifelse(.data$shot_clock_range %in% c("22-24", "18-22"), "Early", .data$shotclock_cat)) %>% 
   dplyr::group_by(.data$player_name, .data$shotclock_cat) %>% 
   dplyr::mutate(sum_shotclock_cat = sum(.data$shotclock_freq)) %>% 
   dplyr::ungroup() 
@@ -82,7 +65,7 @@ shot_clock_range_df %>%
     label.position = 'bottom', 
     nrow = 1) 
   ) +
-  theme_minimal(base_size = 10, base_family = "Consolas") +
+  theme_minimal(base_size = 10) +
   theme(legend.position = 'top', 
         axis.title.y = element_blank(),
         axis.title.x = element_blank(), 
@@ -97,8 +80,8 @@ shot_clock_range_df %>%
         plot.title.position = "plot", 
         plot.margin = unit(c(.5, 1.5, 1, .5), "lines"), 
         axis.text.y = element_text(margin=margin(0,-3,0,0), size = 6)) + 
-  labs(title = "Proportion Of Three Point Attempts By \nTime Remaining On The Shot Clock", 
-       subtitle = paste0("Among Top 30 In FG3A  (2020-21) | Updated ", format(Sys.Date(), "%B %d, %Y")), 
+  labs(title = "Proportion Of Three Point Attempts By Time Remaining On The Shot Clock", 
+       subtitle ="Among Top 30 In FG3A  (2020-21)", 
        fill = "Seconds Remaining On Shot Clock") 
 
   ggsave('figures/hoopR_chicklet.png')
