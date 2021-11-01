@@ -1,4 +1,6 @@
 source("R/hoopR_utils.R")
+install.packages("ggchicklet", repos = "https://cinc.rud.is")
+
 pacman::p_load(dplyr, ggplot2, janitor, forcats,
                ggchicklet, paletteer, prismatic, scales)
 # Get and filter data to top 30 players in FG3A ----
@@ -80,8 +82,8 @@ shot_clock_range_df %>%
         plot.title.position = "plot", 
         plot.margin = unit(c(.5, 1.5, 1, .5), "lines"), 
         axis.text.y = element_text(margin=margin(0,-3,0,0), size = 6)) + 
-  labs(title = "Proportion Of Three Point Attempts By Time Remaining On The Shot Clock", 
+  labs(title = "Proportion Of Three Point Attempts By Time Remaining\nOn The Shot Clock", 
        subtitle ="Among Top 30 In FG3A  (2020-21)", 
        fill = "Seconds Remaining On Shot Clock") 
 
-  ggsave('figures/hoopR_chicklet.png')
+  ggsave('figures/hoopR_chicklet.png', width = 4.5, height = 6.0, units=c("in"))
