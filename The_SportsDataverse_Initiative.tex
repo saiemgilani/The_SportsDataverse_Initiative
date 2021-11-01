@@ -42,10 +42,10 @@
 \title{The SportsDataverse: An Open Sports Data Initiative}
 
 \author{
-%  Saiem Gilani \\
-%   Lead Engineer\\
-%   SportsDataverse.org\\
-%   \texttt{saiem.gilani@gmail.com} \\
+ Saiem Gilani \\
+  Lead Engineer\\
+  SportsDataverse.org\\
+  \texttt{saiem.gilani@gmail.com} \\
 }
 
 \begin{document}
@@ -59,16 +59,16 @@ The \href{https://sportsdataverse.org}{SportsDataverse} is a broader concept to 
 
 The SportsDataverse developer group has created a collection of software packages for sports data with modules written in Python, R, and Node.js. Collectively, the SportsDataverse packages cover 18 sports leagues worth of data, including 11+ men's sports and 7+ women's sports with plans for expansion. 
 
-Several of the packages written are directly modeled on the data engineering efforts of the \texttt{nflfastR} team, including \texttt{cfbfastR(py)}\cite{gilani_etal_cfbfastr_2021}\cite{gilani_cfbfastRpy_2021}, \texttt{hoopR(py)}\cite{gilani_hoopR_2021}\cite{gilani_hoopRpy_2021}, and \texttt{wehoop(py)}\cite{hutchingson_gilani_2021}\cite{gilani_wehooppy_2021}. These packages allow for the loading of play-by-play and box score data for 16+ seasons of data for NBA, WNBA, men's and women's college basketball, and college football with parallel processing and progress updates. This saves the user countless hours of setting up a web scrape, setting up a cron job to schedule automated data extracts and allows them to spend more time building their project rather than building the data infrastructure and pipeline from scratch.  
+Several of the packages written are directly modeled on the data engineering efforts of the \texttt{nflfastR} team, including \texttt{cfbfastR}\cite{gilani_etal_cfbfastr_2021}, \texttt{hoopR}\cite{gilani_hoopR_2021}, and \texttt{wehoop}\cite{hutchinson_gilani_2021}. Python users can use the \texttt{sportsdataverse} python package for the same leagues (and more)\cite{gilani_sportsdataversepy_2021}. These packages allow for the loading of play-by-play and box score data for 15+ seasons of data for NBA, WNBA, men's and women's college basketball, and college football with progress updates. This saves the user countless hours of setting up a web scrape, setting up a cron job to schedule automated data extracts and allows them to spend more time building their project rather than building the data infrastructure and pipeline from scratch.  
 
 \section{Data and Programming Language Considerations}
 The programming languages of Python, R and Node.js were chosen for their widespread usage among the data science, sports analytics, and application development communities. Though there is no current intention to extend to more languages, the data repositories made available through the use of the existing packages can be accessed via your preferred language of choice as painlessly as downloading any file from a URL would be. Most data are available in multiple formats of \texttt{CSV}, \texttt{Rds}, \texttt{JSON} or \texttt{Parquet} for ease of inter-language use. Among the goals of the SportsDataverse is to flatten the learning curve the average user has to go through to get access to high quality open-source sports data and analytics. While the utility building and function packaging portion of the project is a "work in progress", we have successfully created an exceptional collection of open-source sports data repositories on GitHub. For example, from the packages I directly contribute to, we have generated \textbf{over 250 gigabytes of data} in the aforementioned formats for use in loading and reference across the SportsDataverse. 
 
 \section{Packages}
-While there are at present a dozen R packages within the SportsDataverse (5 in Python, 3 in Node.js), for the sake of brevity, I will briefly discuss three in this paper -- \texttt{cfbfastR} for college football, \texttt{hoopR} for NBA and men's college basketball, and \texttt{wehoop} for WNBA and women's college basketball coverage. Each package has the ability to load 16+ seasons of play-by-play data for each sport covered, from which users can then create their own processing pipeline for their own analyses. Additionally, each package also allows for access to live game data through access to ESPN's content delivery networks (CDN) and application programming interfaces (API). 
+While there are at present a dozen R packages within the SportsDataverse (2 in Python, 3 in Node.js), for the sake of brevity, I will briefly discuss three in this paper -- \texttt{cfbfastR} for college football, \texttt{hoopR} for NBA and men's college basketball, and \texttt{wehoop} for WNBA and women's college basketball coverage. Each package has the ability to load 15+ seasons of play-by-play data for each sport covered, from which users can then create their own processing pipeline for their own analyses. Additionally, each package also allows for access to live game data through access to ESPN's content delivery networks (CDN) and application programming interfaces (API). 
 
 \subsection{Package Installations}
-The packages listed above are being prepared for submission to CRAN (the Comprehensive R Archive Network) and thus must be installed from GitHub. I prefer the \texttt{pacman} installation method as follows:
+The packages listed above have been submitted to CRAN (the Comprehensive R Archive Network) and currently must be installed from GitHub. I prefer the \texttt{pacman} installation  and library loading method as follows:
 \usemintedstyle{friendly}
 \begin{minted}
 [
@@ -77,11 +77,13 @@ bgcolor=offwhite,
 fontsize=\footnotesize
 ]
 {R}
+>>> R
 if (!requireNamespace('pacman', quietly = TRUE)){
   install.packages('pacman')
 }
-pacman::p_load_current_gh("saiemgilani/cfbfastR", "saiemgilani/hoopR", "saiemgilani/wehoop")
-pacman::p_load(dplyr, tictoc, ggplot2, janitor, forcats, ggchicklet, paletteer, prismatic, scales)
+pacman::p_load_current_gh("saiemgilani/hoopR", "saiemgilani/wehoop")
+pacman::p_load(cfbfastR, dplyr, tictoc, ggplot2, janitor, forcats, 
+               ggchicklet, paletteer, prismatic, scales)
 
 \end{minted}
 
@@ -272,7 +274,6 @@ bgcolor=offwhite,
 fontsize=\footnotesize
 ]
 {R}
-future::plan("multisession")
 tictoc::tic()
 progressr::with_progress({
   wnba_pbp <- wehoop::load_wnba_pbp(2002:2021)
@@ -327,7 +328,7 @@ glue::glue("WNBA play-by-play data from {length(unique(wnba_pbp$game_id))} games
 #$ game_id                   <int> 220525006, 220525006, 220525006, ~
 \end{minted}
 
-\subsection{WNBA full team box score seasons (2002-2021) ~ 5-30 seconds}
+\subsection{WNBA full team box score seasons (2003-2021) ~ 5-30 seconds}
 \usemintedstyle{friendly}
 \begin{minted}
 [
@@ -336,10 +337,9 @@ bgcolor=offwhite,
 fontsize=\footnotesize
 ]
 {R}
-future::plan("multisession")
 tictoc::tic()
 progressr::with_progress({
-  wnba_team_box <- wehoop::load_wnba_team_box(2002:2021)
+  wnba_team_box <- wehoop::load_wnba_team_box(2003:2021)
 })
 tictoc::toc()
 ## 8.06 sec elapsed 
@@ -356,17 +356,16 @@ bgcolor=offwhite,
 fontsize=\footnotesize
 ]
 {R}
-future::plan("multisession")
 tictoc::tic()
 progressr::with_progress({
   wnba_player_box <- wehoop::load_wnba_player_box(2002:2021)
 })
 tictoc::toc()                    
-## 6.66 sec elapsed
+## 6.68 sec elapsed
 glue::glue("WNBA player boxscore data from {length(unique(wnba_player_box\$game_id))} games.")
 ## WNBA player boxscore data from 4677 games.
 \end{minted}
-\subsection{Women's college basketball full play-by-play seasons (2002-2021) ~ 45-90 seconds}
+\subsection{Women's college basketball full play-by-play seasons (2004-2021) ~ 45-90 seconds}
 \usemintedstyle{friendly}
 \begin{minted}
 [
@@ -375,10 +374,9 @@ bgcolor=offwhite,
 fontsize=\footnotesize
 ]
 {R}
-future::plan("multisession")
 tictoc::tic()
 progressr::with_progress({
-  wbb_pbp <- wehoop::load_wbb_pbp(2002:2021)
+  wbb_pbp <- wehoop::load_wbb_pbp(2004:2021)
 })
 tictoc::toc()                                                                                                           
 ## 44.51 sec elapsed
@@ -443,7 +441,7 @@ $ coordinate_y                    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 
 
 \end{minted}
 
-\subsection{Women's college basketball full team box score seasons (2002-2021) ~ 5-30 seconds}
+\subsection{Women's college basketball full team box score seasons (2006-2021) ~ 5-30 seconds}
 \usemintedstyle{friendly}
 \begin{minted}
 [
@@ -452,10 +450,9 @@ bgcolor=offwhite,
 fontsize=\footnotesize
 ]
 {R}
-future::plan("multisession")
 tictoc::tic()
 progressr::with_progress({
-  wbb_team_box <- wehoop::load_wbb_team_box(2002:2021)
+  wbb_team_box <- wehoop::load_wbb_team_box(2006:2021)
 })
 tictoc::toc()
 ## 7.12 sec elapsed
@@ -464,7 +461,7 @@ glue::glue("WBB team boxscore data from {length(unique(wbb_team_box$game_id))} g
 \end{minted}
 
 
-\subsection{Women's college basketball full player box score seasons (2002-2021) ~ 5-30 seconds}
+\subsection{Women's college basketball full player box score seasons (2006-2021) ~ 5-30 seconds}
 
 \usemintedstyle{friendly}
 \begin{minted}
@@ -474,10 +471,9 @@ bgcolor=offwhite,
 fontsize=\footnotesize
 ]
 {R}
-future::plan("multisession")
 tictoc::tic()
 progressr::with_progress({
-  wbb_player_box <- wehoop::load_wbb_player_box(2002:2021)
+  wbb_player_box <- wehoop::load_wbb_player_box(2006:2021)
 })
 tictoc::toc()
 glue::glue("WBB player boxscore data from {length(unique(wbb_player_box$game_id))} games.")
@@ -495,33 +491,15 @@ bgcolor=offwhite,
 fontsize=\footnotesize
 ]
 {R}
-# Python
+# Python (already possible, go try it)
 pip install sportsdataverse
-# R
-install.packages(sporstdataverse)
-# Node.js
+# R (Work in progress)
+install.packages(sportsdataverse)
+# Node.js (already possible, go try it)
 yarn add sportsdataverse
 \end{minted}
 
 For a thorough covering of the documentation for each of the packages and their functionalities, please refer to Table \ref{tbl:sdvpy} for the Python packages, Table \ref{tbl:sdvr} for the R packages, and Table \ref{tbl:sdvjs} for the Node.js modules. 
-
-\newpage
-% \subsection{Package Logos}\begin{figure}[htbp]
-%     \centering
-%     \caption{cfbfastR, hoopR, wehoop in \textit{R, Python}}
-%     \centering
-%     \includegraphics[width=0.1\textwidth]{./figures/cfbfastR.png}
-%     \includegraphics[width=0.1\textwidth]{./figures/hoopR.png}
-%     \includegraphics[width=0.1\textwidth]{./figures/wehoop.png}
-%     \includegraphics[width=0.1\textwidth]{./figures/cfbfastR-py.png}
-%     \includegraphics[width=0.1\textwidth]{./figures/hoopR-py.png}
-%     \includegraphics[width=0.1\textwidth]{./figures/wehoop-py.png}
-%     \label{fig:sdvR}
-% \end{figure} 
-% \newpage
-\section{References}
-\printbibliography[title={\hspace{5pt}\vspace{-10pt}}]
-
 \newpage
 \section{Package Documentation Reference}
 These are the packages that have agreed to join us the SportsDataverse:
@@ -533,11 +511,7 @@ These are the packages that have agreed to join us the SportsDataverse:
 \multicolumn{4}{c}{\textbf{Python Packages in the SportsDataverse}} \\
 \textbf{Package} & \textbf{Sports Leagues} & \textbf{Repository} & \textbf{Author(s)} \\ 
  \midrule
-    cfbfastR-py & College Football & \href{https://github.com/saiemgilani/cfbfastR-py/}{GitHub} - \href{https://cfbfastR-py.sportsdataverse.org/}{Docs} & Saiem Gilani\\
-    hoopR-py & NBA and Men's College Basketball & \href{https://github.com/saiemgilani/hoopR-py/}{GitHub} - \href{https://hoopR-py.sportsdataverse.org}{Docs} & Saiem Gilani \\
-    recruitR-py & Men's College Sports Recruiting & \href{https://github.com/saiemgilani/recruitR-py/}{GitHub} - \href{https://saiemgilani.github.io/recruitR/}{Docs} & Saiem Gilani, Bud Davis \\
-    wehoop-py & WNBA and Women's College Basketball & \href{https://github.com/saiemgilani/wehoop-py}{GitHub} - \href{https://wehoop-py.sportsdataverse.org}{Docs} & Saiem Gilani \\
-    powerplay-py & NHL & \href{https://github.com/saiemgilani/powerplay-py}{GitHub} - \href{https://saiemgilani.github.io/powerplay}{Docs} & Saiem Gilani \\
+    sportsdataverse & College Football, NFL, NBA, WNBA, NHL, Men's and Women's College Basketball, most collegiate sports & \href{https://github.com/saiemgilani/sportsdataverse-py/}{GitHub} - \href{https://py.sportsdataverse.org/}{Docs} & Saiem Gilani\\
 \bottomrule
 \end{tabular}
 \vspace{5pt}
@@ -560,9 +534,10 @@ These are the packages that have agreed to join us the SportsDataverse:
     recruitR & Men's College Sports Recruiting & \href{https://github.com/saiemgilani/recruitR/}{GitHub} - \href{https://saiemgilani.github.io/recruitR/}{Docs} & Saiem Gilani \\
     wehoop & WNBA and Women's College Basketball & \href{https://github.com/saiemgilani/wehoop}{GitHub} - \href{https://wehoop.sportsdataverse.org}{Docs} & Saiem Gilani and Geoff Hutchinson \\
     worldfootballR & EPL, La Liga, Bundesliga, Serie A, Ligue 1, RFPL & \href{https://github.com/JaseZiv/worldfootballR}{GitHub} - \href{https://jaseziv.github.io/worldfootballR}{Docs} & Jason Zivkovic \\
-    hockeyR & NHL & \href{https://github.com/danmorse314/hockeyR/}{GitHub} - \href{https://hockeyr.netlify.app/}{Docs} & Dan Morse \\
-    powerplay & NHL & \href{https://github.com/saiemgilani/powerplay}{GitHub} - \href{https://saiemgilani.github.io/powerplay}{Docs} & Saiem Gilani \\
     baseballr & MLB, MiLB, NCAA Baseball & \href{https://github.com/BillPetti/baseballr/}{GitHub} - \href{https://BillPetti.github.io/baseballr}{Docs} & Bill Petti \\
+    hockeyR & NHL & \href{https://github.com/danmorse314/hockeyR/}{GitHub} - \href{https://hockeyr.netlify.app/}{Docs} & Dan Morse \\
+    fastRhockey & NHL & \href{https://github.com/BenHowell71/fastRhockey/}{GitHub} - \href{https://BenHowell71.github.io/fastRhockey}{Docs} & Ben Howell \\
+    powerplay & NHL & \href{https://github.com/saiemgilani/powerplay}{GitHub} - \href{https://saiemgilani.github.io/powerplay}{Docs} & Saiem Gilani \\
 \bottomrule 
 \end{tabular}
 \vspace{5pt}
@@ -578,13 +553,29 @@ These are the packages that have agreed to join us the SportsDataverse:
 \multicolumn{4}{c}{\textbf{Node.js Packages in the SportsDataverse}} \\
 \textbf{Package} & \textbf{Sports Leagues} & \textbf{Repository} & \textbf{Author(s)} \\ 
  \midrule
-    sportsdataverse & College Football & \href{https://github.com/saiemgilani/sportsdataverse/}{GitHub} - \href{https://saiemgilani.github.io/sportsdataverse}{Docs} & Saiem Gilani\\
-    @sportsdataverse/nhl & NHL & \href{https://github.com/saiemgilani/sportsdataverse-nhl/}{GitHub} & Saiem Gilani \\
-    nfl-nerd & Men's College SportsRecruiting & \href{https://github.com/nntrn/nfl-nerd/}{GitHub} & Annie Tran \\
+    sportsdataverse & College Football, NFL, NBA, WNBA, NHL, Men's and Women's College Basketball, most collegiate sports & \href{https://github.com/saiemgilani/sportsdataverse}{GitHub} - \href{https://saiemgilani.github.io/sportsdataverse}{Docs} & Saiem Gilani\\
+    nfl-nerd & NFL & \href{https://github.com/nntrn/nfl-nerd}{GitHub} & Annie Tran \\
 \end{tabular}
 \vspace{5pt}
 \caption{Node.js modules contributed to the SportsDataverse}
 \label{tbl:sdvjs}
 \vspace{-7mm}
 \end{table}
+\newpage
+% \subsection{Package Logos}\begin{figure}[htbp]
+%     \centering
+%     \caption{cfbfastR, hoopR, wehoop in \textit{R, Python}}
+%     \centering
+%     \includegraphics[width=0.1\textwidth]{./figures/cfbfastR.png}
+%     \includegraphics[width=0.1\textwidth]{./figures/hoopR.png}
+%     \includegraphics[width=0.1\textwidth]{./figures/wehoop.png}
+%     \includegraphics[width=0.1\textwidth]{./figures/cfbfastR-py.png}
+%     \includegraphics[width=0.1\textwidth]{./figures/hoopR-py.png}
+%     \includegraphics[width=0.1\textwidth]{./figures/wehoop-py.png}
+%     \label{fig:sdvR}
+% \end{figure} 
+% \newpage
+\section{References}
+\printbibliography[title={\hspace{5pt}\vspace{-10pt}}]
+
 \end{document}
