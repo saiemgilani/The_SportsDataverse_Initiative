@@ -383,61 +383,61 @@ tictoc::toc()
 glue::glue("WBB play-by-play data from {length(unique(wbb_pbp$game_id))} games.")
 ## WBB play-by-play data from 26023 games.
 dplyr::glimpse(wbb_pbp[1:53])
-Rows: 8,650,487
-Columns: 53
-$ shooting_play                   <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, ~
-$ sequence_number                 <chr> "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"~
-$ period_display_value            <chr> "1st Half", "1st Half", "1st Half", "1st Half", "1st Half", "1st Half", "1st Half", "1st Half", "~
-$ period_number                   <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~
-$ home_score                      <int> 0, 0, 0, 0, 0, 2, 2, 3, 5, 5, 5, 5, 5, 5, 6, 7, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 11, 11, 11, 11,~
-$ scoring_play                    <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, TRU~
-$ clock_display_value             <chr> "19:51", "19:51", "19:33", "19:18", "19:18", "19:13", "19:13", "19:13", "19:05", "18:57", "18:57"~
-$ team_id                         <chr> "228", "150", "150", "228", "150", "150", "228", "150", "150", "150", "228", "228", "228", "228",~
-$ type_id                         <chr> "20558", "587", "601", "20558", "587", "20558", "601", "97", "20424", "601", "97", "587", "97", "~
-$ type_text                       <chr> "JumpShot", "Defensive Rebound", "Foul Turnover", "JumpShot", "Defensive Rebound", "JumpShot", "F~
-$ away_score                      <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~
-$ id                              <dbl> 2405801500001, 2405801500002, 2405801500003, 2405801500004, 2405801500005, 2405801500006, 2405801~
-$ text                            <chr> "Lakeia Stokes missed Two Point Jumper.", "Alana Beard Defensive Rebound.", "Foul on Mistie Bass"~
-$ score_value                     <int> 0, 0, 0, 0, 0, 2, 0, 1, 2, 0, 0, 0, 1, 0, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 2~
-$ participants_0_athlete_id       <chr> "285", "436", "2475", "282", "2475", "438", "280", "438", "436", "438", "282", NA, "282", "280", ~
-$ participants_1_athlete_id       <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
-$ season                          <int> 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2004, 2~
-$ season_type                     <int> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2~
-$ away_team_id                    <int> 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 228, 22~
-$ away_team_name                  <chr> "Clemson", "Clemson", "Clemson", "Clemson", "Clemson", "Clemson", "Clemson", "Clemson", "Clemson"~
-$ away_team_mascot                <chr> "Tigers", "Tigers", "Tigers", "Tigers", "Tigers", "Tigers", "Tigers", "Tigers", "Tigers", "Tigers~
-$ away_team_abbrev                <chr> "CLEM", "CLEM", "CLEM", "CLEM", "CLEM", "CLEM", "CLEM", "CLEM", "CLEM", "CLEM", "CLEM", "CLEM", "~
-$ away_team_name_alt              <chr> "Clemson", "Clemson", "Clemson", "Clemson", "Clemson", "Clemson", "Clemson", "Clemson", "Clemson"~
-$ home_team_id                    <int> 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 15~
-$ home_team_name                  <chr> "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "~
-$ home_team_mascot                <chr> "Blue Devils", "Blue Devils", "Blue Devils", "Blue Devils", "Blue Devils", "Blue Devils", "Blue D~
-$ home_team_abbrev                <chr> "DUKE", "DUKE", "DUKE", "DUKE", "DUKE", "DUKE", "DUKE", "DUKE", "DUKE", "DUKE", "DUKE", "DUKE", "~
-$ home_team_name_alt              <chr> "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "Duke", "~
-$ home_team_spread                <dbl> 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.~
-$ game_spread                     <dbl> 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.~
-$ home_favorite                   <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, T~
-$ game_spread_available           <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,~
-$ game_id                         <int> 240580150, 240580150, 240580150, 240580150, 240580150, 240580150, 240580150, 240580150, 240580150~
-$ qtr                             <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~
-$ time                            <chr> "19:51", "19:51", "19:33", "19:18", "19:18", "19:13", "19:13", "19:13", "19:05", "18:57", "18:57"~
-$ clock_minutes                   <chr> "19", "19", "19", "19", "19", "19", "19", "19", "19", "18", "18", "18", "18", "18", "18", "18", "~
-$ clock_seconds                   <chr> "51", "51", "33", "18", "18", "13", "13", "13", "05", "57", "57", "57", "57", "47", "47", "47", "~
-$ half                            <chr> "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1~
-$ game_half                       <chr> "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1~
-$ lag_qtr                         <dbl> NA, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
-$ lead_qtr                        <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~
-$ lag_game_half                   <chr> NA, "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"~
-$ lead_game_half                  <chr> "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1~
-$ start_quarter_seconds_remaining <int> 1191, 1191, 1173, 1158, 1158, 1153, 1153, 1153, 1145, 1137, 1137, 1137, 1137, 1127, 1127, 1127, 1~
-$ start_half_seconds_remaining    <int> 1791, 1791, 1773, 1758, 1758, 1753, 1753, 1753, 1745, 1737, 1737, 1737, 1737, 1727, 1727, 1727, 1~
-$ start_game_seconds_remaining    <int> 2991, 2991, 2973, 2958, 2958, 2953, 2953, 2953, 2945, 2937, 2937, 2937, 2937, 2927, 2927, 2927, 2~
-$ game_play_number                <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27~
-$ end_quarter_seconds_remaining   <dbl> 600, 1191, 1191, 1173, 1158, 1158, 1153, 1153, 1153, 1145, 1137, 1137, 1137, 1137, 1127, 1127, 11~
-$ end_half_seconds_remaining      <dbl> 1200, 1791, 1791, 1773, 1758, 1758, 1753, 1753, 1753, 1745, 1737, 1737, 1737, 1737, 1727, 1727, 1~
-$ end_game_seconds_remaining      <dbl> 2400, 2991, 2991, 2973, 2958, 2958, 2953, 2953, 2953, 2945, 2937, 2937, 2937, 2937, 2927, 2927, 2~
-$ period                          <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1~
-$ coordinate_x                    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
-$ coordinate_y                    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+# Rows: 8,650,487
+# Columns: 53
+# $ shooting_play                   <lgl> TRUE, FALSE, FALSE, TRUE, FALSE, ~
+# $ sequence_number                 <chr> "1", "2", "3", "4", "5", "6", "7"~
+# $ period_display_value            <chr> "1st Half", "1st Half", "1st Half~
+# $ period_number                   <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+# $ home_score                      <int> 0, 0, 0, 0, 0, 2, 2, 3, 5, 5, 5, ~
+# $ scoring_play                    <lgl> FALSE, FALSE, FALSE, FALSE, FALSE~
+# $ clock_display_value             <chr> "19:51", "19:51", "19:33", "19:18~
+# $ team_id                         <chr> "228", "150", "150", "228", "150"~
+# $ type_id                         <chr> "20558", "587", "601", "20558", "~
+# $ type_text                       <chr> "JumpShot", "Defensive Rebound", ~
+# $ away_score                      <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+# $ id                              <dbl> 2.405802e+12, 2.405802e+12, 2.405~
+# $ text                            <chr> "Lakeia Stokes missed Two Point J~
+# $ score_value                     <int> 0, 0, 0, 0, 0, 2, 0, 1, 2, 0, 0, ~
+# $ participants_0_athlete_id       <chr> "285", "436", "2475", "282", "247~
+# $ participants_1_athlete_id       <chr> NA, NA, NA, NA, NA, NA, NA, NA, N~
+# $ season                          <int> 2004, 2004, 2004, 2004, 2004, 200~
+# $ season_type                     <int> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, ~
+# $ away_team_id                    <int> 228, 228, 228, 228, 228, 228, 228~
+# $ away_team_name                  <chr> "Clemson", "Clemson", "Clemson", ~
+# $ away_team_mascot                <chr> "Tigers", "Tigers", "Tigers", "Ti~
+# $ away_team_abbrev                <chr> "CLEM", "CLEM", "CLEM", "CLEM", "~
+# $ away_team_name_alt              <chr> "Clemson", "Clemson", "Clemson", ~
+# $ home_team_id                    <int> 150, 150, 150, 150, 150, 150, 150~
+# $ home_team_name                  <chr> "Duke", "Duke", "Duke", "Duke", "~
+# $ home_team_mascot                <chr> "Blue Devils", "Blue Devils", "Bl~
+# $ home_team_abbrev                <chr> "DUKE", "DUKE", "DUKE", "DUKE", "~
+# $ home_team_name_alt              <chr> "Duke", "Duke", "Duke", "Duke", "~
+# $ home_team_spread                <dbl> 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5~
+# $ game_spread                     <dbl> 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5~
+# $ home_favorite                   <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRU~
+# $ game_spread_available           <lgl> FALSE, FALSE, FALSE, FALSE, FALSE~
+# $ game_id                         <int> 240580150, 240580150, 240580150, ~
+# $ qtr                             <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+# $ time                            <chr> "19:51", "19:51", "19:33", "19:18~
+# $ clock_minutes                   <chr> "19", "19", "19", "19", "19", "19~
+# $ clock_seconds                   <chr> "51", "51", "33", "18", "18", "13~
+# $ half                            <chr> "1", "1", "1", "1", "1", "1", "1"~
+# $ game_half                       <chr> "1", "1", "1", "1", "1", "1", "1"~
+# $ lag_qtr                         <dbl> NA, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,~
+# $ lead_qtr                        <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+# $ lag_game_half                   <chr> NA, "1", "1", "1", "1", "1", "1",~
+# $ lead_game_half                  <chr> "1", "1", "1", "1", "1", "1", "1"~
+# $ start_quarter_seconds_remaining <int> 1191, 1191, 1173, 1158, 1158, 115~
+# $ start_half_seconds_remaining    <int> 1791, 1791, 1773, 1758, 1758, 175~
+# $ start_game_seconds_remaining    <int> 2991, 2991, 2973, 2958, 2958, 295~
+# $ game_play_number                <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11~
+# $ end_quarter_seconds_remaining   <dbl> 600, 1191, 1191, 1173, 1158, 1158~
+# $ end_half_seconds_remaining      <dbl> 1200, 1791, 1791, 1773, 1758, 175~
+# $ end_game_seconds_remaining      <dbl> 2400, 2991, 2991, 2973, 2958, 295~
+# $ period                          <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ~
+# $ coordinate_x                    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, N~
+# $ coordinate_y                    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, N~
 
 \end{minted}
 
