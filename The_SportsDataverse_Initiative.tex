@@ -207,7 +207,8 @@ shot_clock_range_df <- shot_clock_range_df %>%
 
 #### Convert overall shot clock category to a factor ----
 shot_clock_range_df$shotclock_cat <- as.factor(shot_clock_range_df$shotclock_cat)
-shot_clock_range_df$shotclock_cat <- factor(shot_clock_range_df$shotclock_cat, levels = c("Late", "Average", "Early"))
+shot_clock_range_df$shotclock_cat <- factor(shot_clock_range_df$shotclock_cat,
+                                            levels = c("Late", "Average", "Early"))
 
 ### Order players by the proporition of Late 3s----
 shot_clock_range_df <- shot_clock_range_df %>% 
