@@ -35,17 +35,19 @@ shot_clock_range_df <- shot_clock_range_df %>%
 ## Create combined text labels for the ranges -----
 shot_clock_range_df <- shot_clock_range_df %>% 
   dplyr::mutate(
-    shotclock_cat = NA, 
-    shotclock_cat = ifelse(.data$shot_clock_range %in% c("0-4", "4-7"), "Late", .data$shotclock_cat), 
-    shotclock_cat = ifelse(.data$shot_clock_range %in% c("15-18", "7-15"), "Average", .data$shotclock_cat), 
-    shotclock_cat = ifelse(.data$shot_clock_range %in% c("22-24", "18-22"), "Early", .data$shotclock_cat)) %>% 
+    shotclock_cat = dplyr::case_when(
+      .data$shot_clock_range %in% c("0-4", "4-7") ~ "Late",
+      .data$shot_clock_range %in% c("15-18", "7-15") ~ "Average",
+      .data$shot_clock_range %in% c("22-24", "18-22") ~ "Early",
+      TRUE ~ NA_character_)) %>% 
   dplyr::group_by(.data$player_name, .data$shotclock_cat) %>% 
   dplyr::mutate(sum_shotclock_cat = sum(.data$shotclock_freq)) %>% 
   dplyr::ungroup() 
 
 #### Convert overall shot clock category to a factor ----
 shot_clock_range_df$shotclock_cat <- as.factor(shot_clock_range_df$shotclock_cat)
-shot_clock_range_df$shotclock_cat <- factor(shot_clock_range_df$shotclock_cat, levels = c("Late", "Average", "Early"))
+shot_clock_range_df$shotclock_cat <- factor(shot_clock_range_df$shotclock_cat,
+                                            levels = c("Late", "Average", "Early"))
 
 ### Order players by the proporition of Late 3s----
 shot_clock_range_df <- shot_clock_range_df %>% 
@@ -81,9 +83,9 @@ shot_clock_range_df %>%
         plot.subtitle = element_text(size = 8), 
         plot.title.position = "plot", 
         plot.margin = unit(c(.5, 1.5, 1, .5), "lines"), 
-        axis.text.y = element_text(margin=margin(0,-3,0,0), size = 6)) + 
-  labs(title = "Proportion Of Three Point Attempts By Time Remaining\nOn The Shot Clock", 
-       subtitle ="Among Top 30 In FG3A  (2020-21)", 
-       fill = "Seconds Remaining On Shot Clock") 
+        axis.text.y = element_text(margin=margin(0,-3,0,0), size = 7)) + 
+  labs(title = "Proportion of Three Point Attempts \nBy Time Remaining on the Shot Clock", 
+       subtitle ="Among Top 30 in FG3A  (2020-21)", 
+       fill = "Seconds Remaining on Shot Clock") 
 
-  ggsave('figures/hoopR_chicklet.png', width = 4.5, height = 6.5, units=c("in"))
+  ggsave('figures/hoopR_chicklet.png', width = 5.0, height = 6.5, units=c("in"))
