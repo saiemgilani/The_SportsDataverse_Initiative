@@ -56,6 +56,7 @@ style_mono_light(
 ```{css, include = FALSE, eval = TRUE}
 /* Extra CSS */
 .hljs-github .hjls {
+  font-size: 0.70em;
   background: black;
 }
 .small {
@@ -150,14 +151,18 @@ knitr::include_graphics("https://raw.githubusercontent.com/nflverse/nflverse/mai
 Saiem Gilani - Lead Engineer of the SportsDataverse<br><a href='https://twitter.com/saiemgilani' target='blank'><img src='https://img.shields.io/twitter/follow/saiemgilani?color=blue&amp;label=%40saiemgilani&amp;logo=twitter&amp;style=for-the-badge' alt='@saiemgilani'/></a> <a href='https://github.com/saiemgilani' target='blank'><img src='https://img.shields.io/github/followers/saiemgilani?color=eee&amp;logo=Github&amp;style=for-the-badge' alt='@saiemgilani'/></a>
 
 --
+
 #### What I do
 
 ML Engineer by trade, currently working at Deloitte. Previous industries have included healthcare consulting and medical malpractice, as well as freight shipping and online data science course development. 
 
 --
+
 #### How I got into open-source sports analytics
 
-* Working as an analytics contributor with the folks at TomahawkNation, the FSU SBNation site covering my hometown Seminoles 
+* Working as an analytics contributor with the folks at [TomahawkNation](https://www.tomahawknation.com/), the FSU SBNation site covering my hometown Seminoles
+
+--
 
 * Started contributing on my first open-source sports project in early 2020
 
@@ -200,17 +205,21 @@ Those who have been around long enough know how burdensome maintaining a package
 --
 
 You'll see that packages often fall into various states of disarray, for reasons like:
+
 * the developers have a life off GitHub (what?)
 
 * a job or family with increasing demands
 
-* have been ordered to stop working on any public sports work due to their job
+--
 
 * underlying data source changes going undetected
 
+--
+
 * the project was merely a proof of concept for research
 
-* so so many reasons
+--
+* have been ordered to stop working on any public sports work due to their job
 
 ---
 
@@ -249,11 +258,36 @@ I had a thought I am sure many of the long-standing members of the sports analyt
 
 --
 
-* A set of corresponding data repositories which allow fast loading of the data for users and collectively form one of the largest open-source sports data resources in the public sphere 
-
+* A set of corresponding data repositories which allow fast loading of the data for users and collectively form one of the largest open-source sports data resources in the public sphere   
+   `r emo::ji("key")` + `r emo::ji("crown")`
 
 ---
-### College Football
+### Package Installation
+
+Let's try out a few of the packages I have written for a quick walk-through of how the functions work in R and Python.
+
+#### R 
+
+We will be working with `cfbfastR` (on CRAN), `hoopR` (not yet published on CRAN), and `wehoop` (on CRAN). I prefer the `pacman` package for easy package loading and installation:
+```{r cfbfastR_hoopR_wehoop_install, eval=TRUE, message=FALSE, warning=FALSE, echo = TRUE}
+if (!requireNamespace('pacman', quietly = TRUE)){
+  install.packages('pacman')
+}
+pacman::p_load_current_gh("saiemgilani/hoopR")
+pacman::p_load(cfbfastR, wehoop)
+
+```
+
+#### Python
+
+We will be working with the `sportsdataverse` python module, easily installed via pip as follows:
+
+```{bash pip_install_sdv, eval = FALSE, message = FALSE, warning = FALSE, echo = TRUE}
+pip install sportsdataverse
+```
+
+---
+### College Football 
 R 
 ```{r cfbfastR_load_cfb, eval = TRUE, out.width = "40%", echo = TRUE}
 cfb_pbp <- cfbfastR::load_cfb_pbp(2021)
@@ -333,8 +367,8 @@ wnba_pbp_df = sdv.wnba.load_wnba_pbp(seasons=2021)
 ### Function (naming) follows form
 
 * Function names indicate the data source.
-  - if the function starts with `load_`, `build_`, or `update_`, the data is coming from the data repository
-  - Otherwise, it'll be an abbreviation for the website supplying the data (i.e. `espn_`, `nba_`, `ncaa_`).
+  - If the function starts with `load_`, `build_`, or `update_`, the data is coming from the data repository
+  - Otherwise, it will be an abbreviation for the website supplying the data (i.e. `espn_`, `nba_`, `ncaa_`) for most other external functions
 
 --
 
@@ -356,9 +390,9 @@ knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/The_Sport
 ## SportsDataverse Packages
 ### Python <a href="https://pypi.org/user/saiemgilani/" alt="Saiem's Python Packages" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a>
 
-| **Package**     | **Sports Leagues**    | **Repository**    | **Author(s)**   |
-|:----------------|:----------------------|:------------------|:----------------|
-| sportsdataverse | College Football, NFL, NBA, WNBA, NHL, Men’s and Women’s College Basketball, most collegiate sports | [GitHub][]-[Docs][] | Saiem Gilani  |
+| **Package** | **Sports Leagues** | **Repository** | **Author(s)** |
+| :-- | :-- | :-- | :-- |
+| sportsdataverse | College Football, NFL, NBA, WNBA, NHL, Men’s and Women’s College Basketball, most collegiate sports | [GitHub][] - [Docs][] | Saiem Gilani |
 
   [GitHub]: https://github.com/saiemgilani/sportsdataverse-py/
   [Docs]: https://py.sportsdataverse.org/
@@ -366,19 +400,19 @@ knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/The_Sport
 <br>  
 ### Node.js <a href="https://nodejs.org" target="_blank"> <img src="figures/nodejs.png" alt="nodejs" width="40" height="50"/> </a>
 
-| **Package**     | **Sports Leagues**    | **Repository**    | **Author(s)**   |
-|:----------------|:----------------------|:------------------|:----------------|
-| sportsdataverse | College Football, NFL, NBA, WNBA, NHL, Men’s and Women’s College Basketball, most collegiate sports | [GitHub][1]-[Docs][2] | Saiem Gilani  |
-| nfl-nerd        | NFL                                                                                                 | [GitHub][3]-[Docs][3]          | Annie Tran    |
+| **Package**  | **Sports Leagues** | **Repository** | **Author(s)** |
+| :-- | :-- | :-- | :-- |
+| sportsdataverse | College Football, NFL, NBA, WNBA, NHL, Men’s and Women’s College Basketball, most collegiate sports | [GitHub][27] - [Docs][28] | Saiem Gilani |
+| nfl-nerd | NFL | [GitHub][29] - [Docs][29] | Annie Tran    |
 
-  [1]: https://github.com/saiemgilani/sportsdataverse
-  [2]: https://saiemgilani.github.io/sportsdataverse
-  [3]: https://github.com/nntrn/nfl-nerd
+  [27]: https://github.com/saiemgilani/sportsdataverse
+  [28]: https://saiemgilani.github.io/sportsdataverse
+  [29]: https://github.com/nntrn/nfl-nerd
 ---
 ## SportsDataverse Packages
 ### R <a href="https://www.r-project.org/" target="_blank" alt="R"> <img src="https://www.vectorlogo.zone/logos/r-project/r-project-icon.svg" alt="R" width="40" height="40"/> </a>
 
-| **Package**     | **Sports Leagues**    | **Repository**      | **Author(s)**   |
+| **Package**  | **Sports Leagues**  | **Repository** | **Author(s)**  |
 | :-- | :-- | :-- | :-- |
 | cfbfastR | College Football | [GitHub][25] - [Docs][26] | Saiem Gilani, Akshay Easwaran, Jared Lee, Eric Hess |
 | hoopR | NBA and Men’s College Basketball | [GitHub][1] - [Docs][2] | Saiem Gilani |
@@ -425,15 +459,17 @@ knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/The_Sport
 ### Thank you
 
 * `cfbscrapR` & `cfbfastR` & `nflverse` teams `r emo::ji("football")` `r emo::ji("laptop_computer")`
-* `#CMSAC21 hosts`: Rebecca, Sam, Ron and Carlie `r emo::ji("ice_hockey")`
-* The seriously awesome community of developers that helps build and maintain resources `r emo::ji("football")` `r emo::ji("basketball")`
-* All y'all for listening in `r emo::ji("cowboy")`
+* `#CMSAC21 hosts`: Rebecca, Sam, Ron and Carlie 
+* The seriously awesome community of developers that helps build and maintain resources 
+* All y'all for listening in 
 
 ### Learn more
 
 * [`sportsdataverse`.org](https://www.sportsdataverse.org/) 
+<a href='https://twitter.com/sportsdataverse' target='blank'><img src='https://img.shields.io/twitter/follow/sportsdataverse?color=blue&amp;label=%40SportsDataverse&amp;logo=twitter&amp;style=for-the-badge' alt='@sportsdataverse'/></a>
 
 * [`cfbfastR` docs](https://saiemgilani.github.io/cfbfastR/)
+<a href='https://twitter.com/cfbfastR' target='blank'><img src='https://img.shields.io/twitter/follow/cfbfastR?color=blue&amp;label=%40cfbfastR&amp;logo=twitter&amp;style=for-the-badge' alt='@cfbfastR'/></a>
 
 * [`hoopR` docs](https://hoopR.sportsdataverse.org/)
 
