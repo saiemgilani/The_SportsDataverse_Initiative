@@ -88,4 +88,4 @@ shot_clock_range_df %>%
        subtitle ="Among Top 30 in FG3A  (2020-21)", 
        fill = "Seconds Remaining on Shot Clock") 
 
-  ggsave('figures/hoopR_chicklet.png', width = 5.0, height = 6.5, units=c("in"))
+  ggsave('figures/hoopR_chicklet.png', width = 5.0, height = 5.0, units=c("in"))

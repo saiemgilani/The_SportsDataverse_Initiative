@@ -182,35 +182,40 @@ blockquote {
   padding-left: 1em;
 }
 .split-left {
-  float: center;
+  padding-left: 1em;
+  float: left;
   width: 50%;
 }
 .split-right {
-  float: center;
-  width: 50%;
+  float: right;
+  width: 45%;
 }
 .remark-slide table {
+  font-size: 0.8em;
   margin: auto;
-  border-top: 1px solid #666;
-  border-bottom: 1px solid #666;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 .remark-slide table thead th {
   border-bottom: 1px solid #ddd;
 }
 th, td {
-  padding: 5px;
+  padding: 2px;
 }
 .remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) {
-  background: #D7DAE6;
+  background: #050013;
 }
 table.dataTable tbody {
+  font-size: 0.8em;
   background-color: var(--background-color);
   color: var(--text-color);
 }
 table.dataTable.display tbody tr.odd {
+  font-size: 0.8em;
   background-color: var(--background-color);
 }
 table.dataTable.display tbody tr.even {
+  font-size: 0.8em;
   background-color: #D7DAE6;
 }
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
