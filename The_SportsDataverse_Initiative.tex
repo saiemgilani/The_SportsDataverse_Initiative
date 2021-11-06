@@ -39,7 +39,7 @@
 \g@addto@macro{\UrlBreaks}{\UrlOrds}
 \makeatother
 
-\title{The SportsDataverse: An Open Sports Data Initiative}
+\title{The SportsDataverse: An Open-Source Initiative}
 
 \author{
  Saiem Gilani \\
@@ -68,7 +68,7 @@ The programming languages of Python, R and Node.js were chosen for their widespr
 While there are at present a dozen R packages within the SportsDataverse (2 in Python, 3 in Node.js), for the sake of brevity, I will briefly discuss three in this paper -- \texttt{cfbfastR} for college football, \texttt{hoopR} for NBA and men's college basketball, and \texttt{wehoop} for WNBA and women's college basketball coverage. Each package has the ability to load 15+ seasons of play-by-play data for each sport covered, from which users can then create their own processing pipeline for their own analyses. Additionally, each package also allows for access to live game data through access to ESPN's content delivery networks (CDN) and application programming interfaces (API). 
 
 \subsection{Package Installations}
-The packages listed above have been submitted to CRAN (the Comprehensive R Archive Network) and currently must be installed from GitHub. I prefer the \texttt{pacman} installation  and library loading method as follows:
+The packages listed above have been published on CRAN (the Comprehensive R Archive Network) except for hoopR, which currently must be installed from GitHub until CRAN approves the submission. I prefer the \texttt{pacman} installation  and library loading method as follows:
 \usemintedstyle{friendly}
 \begin{minted}
 [
@@ -77,21 +77,16 @@ bgcolor=offwhite,
 fontsize=\footnotesize
 ]
 {R}
->>> R
-if (!requireNamespace('pacman', quietly = TRUE)){
-  install.packages('pacman')
-}
-pacman::p_load_current_gh("saiemgilani/hoopR", "saiemgilani/wehoop")
-pacman::p_load(cfbfastR, dplyr, tictoc, ggplot2, janitor, forcats, 
+if (!requireNamespace('pacman', quietly = TRUE)){install.packages('pacman')}
+pacman::p_load_current_gh("saiemgilani/hoopR")
+pacman::p_load(cfbfastR, wehoop, dplyr, tictoc, ggplot2, janitor, forcats, 
                ggchicklet, paletteer, prismatic, scales)
-
 \end{minted}
 
 \section{\texttt{cfbfastR}}
 \subsection{Data Sources}
 The \href{https://www.CollegeFootballData.com}{CollegeFootballData.com} API is a resource provided by Bill Radjewski, which allows programmatic access to a database with a number of views for users to query with a free API key\cite{radjewski_2016}. As of \texttt{cfbfastR} version 1.5.2, the package exports \href{https://saiemgilani.github.io/cfbfastR/reference/index.html}{67 functions}. The bulk ($\sim$ 49) of the functions within the package serve as the unofficial R API client for the College Football Data API and those functions' names begin with \texttt{cfbd\_}. The prefix of exported functions generally indicates the data source of the package, so functions beginning with \texttt{espn\_} indicate that they are directly getting the data from the ESPN API. 
-\subsection{Play-by-Play with Expected Points and Win Probability}
-\texttt{\href{https://github.com/saiemgilani/The\_SportsDataverse\_Initiative/R/cfbfastR.R}{R/cfBfastR.R}}
+\subsection{Play-by-Play with Expected Points and Win Probability \texttt{(\href{https://github.com/saiemgilani/The\_SportsDataverse\_Initiative/R/cfbfastR.R}{R/cfbfastR.R}})}
 
 \usemintedstyle{friendly}
 \begin{minted}
@@ -146,10 +141,10 @@ dplyr::glimpse(cfb_pbp[1:27])
 \section{\texttt{hoopR}}
 \subsection{Data Sources}
 As of \texttt{hoopR} version 1.3, the package exports \href{https://saiemgilani.github.io/hoopR/reference/index.html}{191 functions}. The bulk ($\sim$ 132) of the functions within the package serve as a NBA Stats API wrapper and those functions' names begin with \texttt{nba\_} and another 33 functions cover scraping \href{https://www.KenPom.com}{KenPom's} college basketball statistics website. The prefix of exported functions generally indicates the data source of the package, so functions beginning with \texttt{espn\_} indicate that they are directly getting the data from the ESPN API, including those capable of use during live game-play for both men's college basketball and the NBA.  
-\subsection{NBA Shot Clock Chart}
-If you have never perused the amazing Owen Phillips's blog, \href{https://thef5.substack.com/p/nba-shotclock-chart}{The F5}\cite{phillips_2021}, the following example will give you a taste of the NBA content you are missing out on by adapting one of his tutorials to use the hoopR package. 
+\subsection{NBA Shot Clock Chart \texttt{(\href{https://github.com/saiemgilani/The\_SportsDataverse\_Initiative/R/hoopR.R}{R/hoopR.R}})}
+If you never perused the amazing Owen Phillips's blog, \href{https://thef5.substack.com/p/nba-shotclock-chart}{The F5}\cite{phillips_2021}, the following example will give you a taste of the NBA content you missed out on by adapting one of his tutorials to use the hoopR package. 
 \subsubsection{Using hoopR's NBA stats API functions}
-\texttt{\href{https://github.com/saiemgilani/The\_SportsDataverse\_Initiative/R/hoopR.R}{R/hoopR.R}}
+
 \usemintedstyle{friendly}
 \begin{minted}
 [
@@ -162,18 +157,21 @@ source("R/hoopR_utils.R")
 pacman::p_load(dplyr, ggplot2, janitor, forcats,ggchicklet, paletteer, prismatic, scales)
 # Get and filter data to top 30 players in FG3A ----
 fg3a_leaders <- hoopR::nba_leaguedashplayerstats(season="2020-21")$LeagueDashPlayerStats
-fg3a_leaders <- fg3a_leaders %>% janitor::clean_names() %>% 
-  dplyr::mutate(fg3a=as.numeric(.data$fg3a)) %>% dplyr::arrange(desc(.data$fg3a)) %>% 
-  slice(1:30) %>% dplyr::select(.data$player_name, .data$player_id, .data$fg3a)
+fg3a_leaders <- fg3a_leaders %>% 
+  janitor::clean_names() %>% 
+  dplyr::mutate(fg3a=as.numeric(.data$fg3a)) %>% 
+  dplyr::arrange(desc(.data$fg3a)) %>% 
+  slice(1:30) %>% 
+  dplyr::select(.data$player_name, .data$player_id, .data$fg3a)
 # Get player shot-clock range stats-----
 shot_clock_opts <- c("24-22", "22-18+Very+Early", "18-15+Early",
-    "15-7+Average", "7-4+Late", "4-0+Very+Late")
+                     "15-7+Average", "7-4+Late", "4-0+Very+Late")
 shot_clock_range_df <- purrr::map_df(shot_clock_opts, function(.x){
   return(data.frame(shot_clock_range=.x,
     hoopR::nba_leaguedashplayerptshot(shot_clock_range=.x)$LeagueDashPTShots))
 })
-
-shot_clock_range_df <- shot_clock_range_df %>% janitor::clean_names() %>% 
+shot_clock_range_df <- shot_clock_range_df %>% 
+  janitor::clean_names() %>% 
   dplyr::select(player_id, player_name, fg3m, fg3a, shot_clock_range)
 \end{minted}
 
@@ -195,21 +193,18 @@ shot_clock_range_df <- shot_clock_range_df %>%
 ## Create combined text labels for the ranges -----
 shot_clock_range_df <- shot_clock_range_df %>% 
   dplyr::mutate(
-    shotclock_cat = NA, 
-    shotclock_cat = ifelse(.data$shot_clock_range %in% c("0-4", "4-7"), 
-     "Late", .data$shotclock_cat), 
-    shotclock_cat = ifelse(.data$shot_clock_range %in% c("15-18", "7-15"), 
-     "Average", .data$shotclock_cat), 
-    shotclock_cat = ifelse(.data$shot_clock_range %in% c("22-24", "18-22"), 
-     "Early", .data$shotclock_cat)) %>% 
+    shotclock_cat = dplyr::case_when(
+      .data$shot_clock_range %in% c("0-4", "4-7") ~ "Late",
+      .data$shot_clock_range %in% c("15-18", "7-15") ~ "Average",
+      .data$shot_clock_range %in% c("22-24", "18-22") ~ "Early",
+      TRUE ~ NA_character_)) %>% 
   dplyr::group_by(.data$player_name, .data$shotclock_cat) %>% 
-  dplyr::mutate(sum_shotclock_cat = sum(.data$shotclock_freq)) %>%  dplyr::ungroup() 
-
+  dplyr::mutate(sum_shotclock_cat = sum(.data$shotclock_freq)) %>% 
+  dplyr::ungroup() 
 #### Convert overall shot clock category to a factor ----
 shot_clock_range_df$shotclock_cat <- as.factor(shot_clock_range_df$shotclock_cat)
 shot_clock_range_df$shotclock_cat <- factor(shot_clock_range_df$shotclock_cat,
                                             levels = c("Late", "Average", "Early"))
-
 ### Order players by the proporition of Late 3s----
 shot_clock_range_df <- shot_clock_range_df %>% 
   dplyr::arrange(.data$shotclock_cat, .data$sum_shotclock_cat) %>%              
@@ -225,7 +220,6 @@ bgcolor=offwhite,
 fontsize=\footnotesize
 ]
 {R}
-# Plot the Data -----
 shot_clock_range_df %>% 
   ggplot(aes(player_name, shotclock_freq)) + 
   geom_chicklet(aes(fill = fct_rev(shot_clock_range), 
@@ -265,8 +259,8 @@ shot_clock_range_df %>%
 \section{\texttt{wehoop}}
 \subsection{Data Sources}
 As of \texttt{wehoop} version 1.1, the package exports \href{https://saiemgilani.github.io/wehoop/reference/index.html}{27 functions}. The prefix of exported functions generally indicates the data source of the package, so functions beginning with \texttt{espn\_} indicate that they are directly getting the data from the ESPN API, including those capable of use during live game-play for both women's college basketball and the WNBA.  
-\subsection{WNBA full play-by-play seasons (2002-2021) ~ 1-2 minutes}
-\texttt{\href{https://github.com/saiemgilani/The\_SportsDataverse\_Initiative/R/wehoop.R}{R/wehoop.R}}
+\subsection{WNBA full play-by-play seasons (2002-2021) ~ 1-2 minutes \texttt{(\href{https://github.com/saiemgilani/The\_SportsDataverse\_Initiative/R/wehoop.R}{R/wehoop.R})}}
+
 \usemintedstyle{friendly}
 \begin{minted}
 [
@@ -529,16 +523,18 @@ These are the packages that have agreed to join us the SportsDataverse:
 \textbf{Package} & \textbf{Sports Leagues} & \textbf{Repository} & \textbf{Author(s)} \\ 
  \midrule
     cfbfastR & College Football & \href{https://github.com/saiemgilani/cfbfastR/}{GitHub} - \href{https://saiemgilani.github.io/cfbfastR/}{Docs} & Saiem Gilani, Akshay Easwaran, Jared Lee, Eric Hess \\
-    gamezoneR  & Men's and Women's College Basketball & \href{https://github.com/jacklich10/gamezoneR/}{GitHub} - \href{https://jacklich10.github.io/gamezoneR/}{Docs} & Jack Lichtenstein \\
     hoopR & NBA and Men's College Basketball & \href{https://github.com/saiemgilani/hoopR/}{GitHub} - \href{https://hoopR.sportsdataverse.org}{Docs} & Saiem Gilani \\
-    puntr & NFL and College Football & \href{https://github.com/Puntalytics/puntr}{GitHub} - \href{https://puntalytics.github.io/puntr/}{Docs} & Dennis Brookner and Raphael LadenGuindon \\
-    recruitR & Men's College Sports Recruiting & \href{https://github.com/saiemgilani/recruitR/}{GitHub} - \href{https://saiemgilani.github.io/recruitR/}{Docs} & Saiem Gilani \\
     wehoop & WNBA and Women's College Basketball & \href{https://github.com/saiemgilani/wehoop}{GitHub} - \href{https://wehoop.sportsdataverse.org}{Docs} & Saiem Gilani and Geoff Hutchinson \\
+    gamezoneR  & Men's and Women's College Basketball & \href{https://github.com/jacklich10/gamezoneR/}{GitHub} - \href{https://jacklich10.github.io/gamezoneR/}{Docs} & Jack Lichtenstein \\
     worldfootballR & EPL, La Liga, Bundesliga, Serie A, Ligue 1, RFPL & \href{https://github.com/JaseZiv/worldfootballR}{GitHub} - \href{https://jaseziv.github.io/worldfootballR}{Docs} & Jason Zivkovic \\
     baseballr & MLB, MiLB, NCAA Baseball & \href{https://github.com/BillPetti/baseballr/}{GitHub} - \href{https://BillPetti.github.io/baseballr}{Docs} & Bill Petti \\
     hockeyR & NHL & \href{https://github.com/danmorse314/hockeyR/}{GitHub} - \href{https://hockeyr.netlify.app/}{Docs} & Dan Morse \\
-    fastRhockey & NHL & \href{https://github.com/BenHowell71/fastRhockey/}{GitHub} - \href{https://BenHowell71.github.io/fastRhockey}{Docs} & Ben Howell \\
+    fastRhockey & Premier Hockey Federation & \href{https://github.com/BenHowell71/fastRhockey/}{GitHub} - \href{https://BenHowell71.github.io/fastRhockey}{Docs} & Ben Howell \\
     powerplay & NHL & \href{https://github.com/saiemgilani/powerplay}{GitHub} - \href{https://saiemgilani.github.io/powerplay}{Docs} & Saiem Gilani \\
+    cfbplotR & College Sports visualizations & \href{https://github.com/kazink36/cfbplotR}{GitHub} - \href{https://kazink36.github.io/cfbplotR}{Docs} & Jared Lee \\
+    cfb4th & College Football Modeling & \href{https://github.com/kazink36/cfb4th}{GitHub} - \href{https://kazink36.github.io/cfb4th}{Docs} & Jared Lee \\
+    puntr & NFL and College Football & \href{https://github.com/Puntalytics/puntr}{GitHub} - \href{https://puntalytics.github.io/puntr/}{Docs} & Dennis Brookner and Raphael LadenGuindon \\
+    recruitR & Men's College Sports Recruiting & \href{https://github.com/saiemgilani/recruitR/}{GitHub} - \href{https://saiemgilani.github.io/recruitR/}{Docs} & Saiem Gilani \\
 \bottomrule 
 \end{tabular}
 \vspace{5pt}
