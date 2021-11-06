@@ -87,7 +87,7 @@ h1, h2, h3 {
 .remark-slide-content {
   background-color: var(--background-color);
   font-size: 1rem;
-  padding: 16px 64px 16px 64px;
+  padding: 8px 56px 8px 56px;
   width: 100%;
   height: 100%;
 }
@@ -191,8 +191,8 @@ blockquote {
   width: 45%;
 }
 .remark-slide table {
-  font-size: 0.8em;
-  margin: auto;
+  font-size: 0.70em;
+  padding: 1px;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 }
@@ -200,22 +200,22 @@ blockquote {
   border-bottom: 1px solid #ddd;
 }
 th, td {
-  padding: 2px;
+  padding: 1px;
 }
 .remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) {
   background: #050013;
 }
 table.dataTable tbody {
-  font-size: 0.8em;
+  font-size: 0.70em;
   background-color: var(--background-color);
   color: var(--text-color);
 }
 table.dataTable.display tbody tr.odd {
-  font-size: 0.8em;
+  font-size: 0.70em;
   background-color: var(--background-color);
 }
 table.dataTable.display tbody tr.even {
-  font-size: 0.8em;
+  font-size: 0.70em;
   background-color: #D7DAE6;
 }
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
@@ -279,6 +279,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 
 /* Extra CSS */
 .hljs-github .hjls {
+  font-size: 0.70em;
   background: black;
 }
 .small {
