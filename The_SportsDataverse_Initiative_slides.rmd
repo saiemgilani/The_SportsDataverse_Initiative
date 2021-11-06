@@ -379,20 +379,20 @@ knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/The_Sport
 ### R <a href="https://www.r-project.org/" target="_blank" alt="R"> <img src="https://www.vectorlogo.zone/logos/r-project/r-project-icon.svg" alt="R" width="40" height="40"/> </a>
 
 | **Package**     | **Sports Leagues**    | **Repository**      | **Author(s)**   |
-|:----------------|:----------------------|:--------------------|:----------------|
-| cfbfastR | College Football | [GitHub][25]-[Docs][26] | Saiem Gilani, Akshay Easwaran, Jared Lee, Eric Hess |
-| hoopR | NBA and Men’s College Basketball | [GitHub][1]-[Docs][2] | Saiem Gilani |
-| wehoop | WNBA and Women’s College Basketball | [GitHub][3]-[Docs][4] | Saiem Gilani and Geoff Hutchinson |
-| gamezoneR | Men’s and Women’s College Basketball | [GitHub][5]-[Docs][6] | Jack Lichtenstein |
-| worldfootballR | EPL, La Liga, Bundesliga, Serie A, Ligue 1, RFPL | [GitHub][7]-[Docs][8] | Jason Zivkovic |
-| baseballr | MLB, MiLB, NCAA Baseball | [GitHub][9]-[Docs][10] | Bill Petti |
-| hockeyR | NHL | [GitHub][11]-[Docs][12] | Dan Morse |
-| fastRhockey | Premier Hockey Federation | [GitHub][13]-[Docs][14] | Ben Howell |
-| powerplay | NHL | [GitHub][15]-[Docs][16] | Saiem Gilani |
-| cfbplotR | College Sports visualizations | [GitHub][17]-[Docs][18] | Jared Lee |
-| cfb4th | College Football Modeling  | [GitHub][19]-[Docs][20] | Jared Lee |
-| puntr | NFL and College Football | [GitHub][21]-[Docs][22] | Dennis Brookner and Raphael LadenGuindon |
-| recruitR | Men’s College Sports Recruiting | [GitHub][23]-[Docs][24] | Saiem Gilani |
+| :-- | :-- | :-- | :-- |
+| cfbfastR | College Football | [GitHub][25] - [Docs][26] | Saiem Gilani, Akshay Easwaran, Jared Lee, Eric Hess |
+| hoopR | NBA and Men’s College Basketball | [GitHub][1] - [Docs][2] | Saiem Gilani |
+| wehoop | WNBA and Women’s College Basketball | [GitHub][3] - [Docs][4] | Saiem Gilani and Geoff Hutchinson |
+| worldfootballR | EPL, La Liga, Bundesliga, Serie A, Ligue 1, RFPL | [GitHub][7] - [Docs][8] | Jason Zivkovic |
+| baseballr | MLB, MiLB, NCAA Baseball | [GitHub][9] - [Docs][10] | Bill Petti |
+| hockeyR | NHL | [GitHub][11] - [Docs][12] | Dan Morse |
+| fastRhockey | Premier Hockey Federation | [GitHub][13] - [Docs][14] | Ben Howell |
+| powerplay | NHL | [GitHub][15] - [Docs][16] | Saiem Gilani |
+| cfbplotR | College Sports visualizations | [GitHub][17] - [Docs][18] | Jared Lee |
+| cfb4th | College Football Modeling  | [GitHub][19] - [Docs][20] | Jared Lee |
+| gamezoneR | Men’s and Women’s College Basketball | [GitHub][5] - [Docs][6] | Jack Lichtenstein |
+| puntr | NFL and College Football | [GitHub][21] - [Docs][22] | Dennis Brookner and Raphael LadenGuindon |
+| recruitR | Men’s College Sports Recruiting | [GitHub][23] - [Docs][24] | Saiem Gilani |
 
   [25]: https://github.com/saiemgilani/cfbfastR/
   [26]: https://saiemgilani.github.io/cfbfastR/
