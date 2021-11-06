@@ -103,49 +103,16 @@ ML Engineer by trade, currently working at Deloitte. Previous industries have in
 
 * Working as an analytics contributor with the folks at [TomahawkNation](https://www.tomahawknation.com/), the FSU SBNation site covering my hometown Seminoles
 
---
-
-* Started contributing on my first open-source sports project in early 2020
-
-* Invited to work on `cfbscrapR` by Meyappan Subbiah
-
----
-### First Things First: Tidyverse?&lt;br&gt; Nah, I don't know her
-
-At the time, I had this much experience in R:
-
---
-
-* Hardly used the tidyverse outside of Parker Fleming's introductory vignette to `cfbscrapR`.
-
---
-
-* Never worked on a public package
-  - *what do you mean portable, it runs on my machine!*
-
---
-
-* Never started an Rproject 
-
---
-
-* Never used git in any truly collaborative fashion
-  - *by PR, do you mean short for purrr?*
-  
---
-
-* I did have some stats and analytics modeling background in R, so this was my initial foot-hold into the project.
+* Started contributing on my first open-source sports project, `cfbscrapR`, in early 2020
 
 ---
 ### Problems of Open-Source Sports 
 
-One of the more pressing issues facing the community is having contributions in reproducible sports analytics research getting shuttered. 
-
-Those who have been around long enough know how burdensome maintaining a package can be for developers. 
+One of the more pressing issues facing the community is having contributions in reproducible sports analytics research getting shuttered  or falling into various states of disarray
 
 --
 
-You'll see that packages often fall into various states of disarray, for reasons like:
+For reasons like:
 
 * the developers have a life off GitHub (what?)
 
@@ -160,6 +127,7 @@ You'll see that packages often fall into various states of disarray, for reasons
 * the project was merely a proof of concept for research
 
 --
+
 * have been ordered to stop working on any public sports work due to their job
 
 ---
@@ -199,7 +167,7 @@ I had a thought I am sure many of the long-standing members of the sports analyt
 
 --
 
-* A set of corresponding data repositories which allow fast loading of the data for users and collectively form one of the largest open-source sports data resources in the public sphere   
+* A set of corresponding data repositories which allow fast loading of the data for users and collectively form one of the largest open-source sports data resources with **over 250Gb of data produced** from the packages I contribute to   
    🔑 + 👑
 
 ---
@@ -324,8 +292,6 @@ wnba_pbp_df = sdv.wnba.load_wnba_pbp(seasons=2021)
   - If the function starts with `load_`, `build_`, or `update_`, the data is coming from the data repository
   - Otherwise, it will be an abbreviation for the website supplying the data (i.e. `espn_`, `nba_`, `ncaa_`) for most other external functions
 
---
-
 .split-left[
 ### Common Scraper&lt;br&gt; Package Design
 &lt;img src="https://raw.githubusercontent.com/saiemgilani/The_SportsDataverse_Initiative/main/figures/api-scraper.png" width="47%" /&gt;
@@ -408,7 +374,6 @@ wnba_pbp_df = sdv.wnba.load_wnba_pbp(seasons=2021)
 ---
 ### Thank you
 
-* `cfbscrapR` &amp; `cfbfastR` &amp; `nflverse` teams 🏈 💻
 * `#CMSAC21 hosts`: Rebecca, Sam, Ron and Carlie 
 * The seriously awesome community of developers that helps build and maintain resources 
 * All y'all for listening in 
@@ -421,9 +386,11 @@ wnba_pbp_df = sdv.wnba.load_wnba_pbp(seasons=2021)
 * [`cfbfastR` docs](https://saiemgilani.github.io/cfbfastR/)
 &lt;a href='https://twitter.com/cfbfastR' target='blank'&gt;&lt;img src='https://img.shields.io/twitter/follow/cfbfastR?color=blue&amp;amp;label=%40cfbfastR&amp;amp;logo=twitter&amp;amp;style=for-the-badge' alt='@cfbfastR'/&gt;&lt;/a&gt;
 
-* [`hoopR` docs](https://hoopR.sportsdataverse.org/)
+* [Game on Paper](https://gameonpaper.com/cfb/) - for a look at the sportsdataverse python package serving live advanced stats with expected points and win probability metrics.
 
-* [`wehoop` docs](https://wehoop.sportsdataverse.org/)
+&lt;a href='https://twitter.com/saiemgilani' target='blank'&gt;&lt;img src='https://img.shields.io/twitter/follow/saiemgilani?color=blue&amp;amp;label=%40saiemgilani&amp;amp;logo=twitter&amp;amp;style=for-the-badge' alt='@saiemgilani'/&gt;&lt;/a&gt; &lt;a href='https://github.com/saiemgilani' target='blank'&gt;&lt;img src='https://img.shields.io/github/followers/saiemgilani?color=eee&amp;amp;logo=Github&amp;amp;style=for-the-badge' alt='@saiemgilani'/&gt;&lt;/a&gt;
+
+### Questions?
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
