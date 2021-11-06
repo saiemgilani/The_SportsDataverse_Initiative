@@ -4,7 +4,7 @@ author: "Saiem Gilani"
 date: "2021-11-06<br><br>Carnegie Mellon Sports Analytics Conference"
 opengraph:
   image: 
-    src: "https://github.com/saiemgilani/The_SportsDataverse_Initiative/blob/main/figures/sdv-blue.png?raw=true"
+    src: "https://raw.githubusercontent.com/saiemgilani/The_SportsDataverse_Initiative/main/figures/sdv-blue.png"
   twitter:
     site: "@sportsdataverse"
     card: summary_large_image
@@ -76,7 +76,7 @@ style_mono_light(
 
 ```
 
-## Overview
+  ## Overview
 
 The topic of our conversation will be centered around the Sports Data accessibility problem and how the SportsDataverse developer group is trying to create solutions for addressing it. 
 
@@ -124,19 +124,19 @@ The topic of our conversation will be centered around the Sports Data accessibil
 
 ]
 .pull-right[
-```{r, eval = TRUE, out.width = "47%", echo = FALSE}
+```{r cfbscrapR-logo, eval = TRUE, out.width = "47%", echo = FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/cfbscrapR/master/man/figures/logo.png")
 ```
 <br>
-```{r, eval = TRUE, out.width = "47%", echo = FALSE}
+```{r cfbfastR-logo, eval = TRUE, out.width = "47%", echo = FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/cfbfastR/master/man/figures/logo.png")
 ```
 <br>
-```{r, eval = TRUE, out.width = "47%", echo = FALSE}
+```{r cfbd-logo, eval = TRUE, out.width = "47%", echo = FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/The_SportsDataverse_Initiative/main/figures/CFBDLogo.png")
 ```
 <br>
-```{r, eval = TRUE, out.width = "47%", echo = FALSE}
+```{r nflverse-logo, eval = TRUE, out.width = "47%", echo = FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/nflverse/nflverse/main/man/figures/logo.png")
 ```
 ]
@@ -217,11 +217,10 @@ You'll see that packages often fall into various states of disarray, for reasons
 ### The SportsDataverse Initiative `r emo::ji("light_bulb")` 
 
 "...*the idea was to bring together a group of remarkable people, to see if they could become something more. To see if they could work together when we needed them to -- to scrape the data we never could.*"
-
- .pull-right[
- ~ *Nick FuRy*
+ 
+ .pull-right[~ *Nick FuRy* 
+ <br>]
 <br>
-]
 <br>
 I had a thought I am sure many of the long-standing members of the sports analytics community has had.
 
@@ -235,7 +234,7 @@ I had a thought I am sure many of the long-standing members of the sports analyt
 
 ### What the SportsDataverse is:
 
-* An organization trying to make the sports data and analytics industry more diverse, inclusive, and accessible by providing high-quality resources for end-users and opportunities for practical code skill development for those that join the effort.  
+* An organization trying to make the sports data and analytics industry more diverse, inclusive, and accessible by providing high-quality resources for end-users and opportunities for practical code skill development for those that join the effort  
    `r emo::ji("light_bulb")` + `r emo::ji("computer")` + `r emo::ji("chart_increasing")` 
    
 --
@@ -245,10 +244,12 @@ I had a thought I am sure many of the long-standing members of the sports analyt
 
 --
 
-* A set of packages for loading and scraping sports data in R, Python, and Node.js with focus placed on play-by-play data.  
+* A set of packages for loading and scraping sports data in R, Python, and Node.js with focus placed on play-by-play data  
 <a href="https://www.r-project.org/" target="_blank" alt="R"> <img src="https://www.vectorlogo.zone/logos/r-project/r-project-icon.svg" alt="R" width="40" height="40"/> </a>  + <a href="https://pypi.org/user/saiemgilani/" alt="Saiem's Python Packages" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> + <a href="https://nodejs.org" target="_blank"> <img src="figures/nodejs.png" alt="nodejs" width="60" height="50"/> </a> 
 
 --
+
+* A set of corresponding data repositories which allow fast loading of the data for users and collectively form one of the largest open-source sports data resources in the public sphere 
 
 
 ---
@@ -329,12 +330,19 @@ wnba_pbp_df = sdv.wnba.load_wnba_pbp(seasons=2021)
 ```
 
 ---
-### You get it, but let me explain anyway
+### Function (naming) follows form
 
 * Function names indicate the data source.
   - if the function starts with `load_`, `build_`, or `update_`, the data is coming from the data repository
   - Otherwise, it'll be an abbreviation for the website supplying the data (i.e. `espn_`, `nba_`, `ncaa_`).
 
+--
+.pull-right[
+```{r apiscraper-draw, eval = TRUE, out.width = "47%", echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/The_SportsDataverse_Initiative/main/figures/apiscraper.png")
+```
+<br>
+]
 
 ---
 ### Thank you

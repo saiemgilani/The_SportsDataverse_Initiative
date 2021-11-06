@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 
 
 
-## Overview
+  ## Overview
 
 The topic of our conversation will be centered around the Sports Data accessibility problem and how the SportsDataverse developer group is trying to create solutions for addressing it. 
 
@@ -159,11 +159,10 @@ You'll see that packages often fall into various states of disarray, for reasons
 ### The SportsDataverse Initiative 💡 
 
 "...*the idea was to bring together a group of remarkable people, to see if they could become something more. To see if they could work together when we needed them to -- to scrape the data we never could.*"
-
- .pull-right[
- ~ *Nick FuRy*
+ 
+ .pull-right[~ *Nick FuRy* 
+ &lt;br&gt;]
 &lt;br&gt;
-]
 &lt;br&gt;
 I had a thought I am sure many of the long-standing members of the sports analytics community has had.
 
@@ -177,7 +176,7 @@ I had a thought I am sure many of the long-standing members of the sports analyt
 
 ### What the SportsDataverse is:
 
-* An organization trying to make the sports data and analytics industry more diverse, inclusive, and accessible by providing high-quality resources for end-users and opportunities for practical code skill development for those that join the effort.  
+* An organization trying to make the sports data and analytics industry more diverse, inclusive, and accessible by providing high-quality resources for end-users and opportunities for practical code skill development for those that join the effort  
    💡 + 💻 + 📈 
    
 --
@@ -187,10 +186,12 @@ I had a thought I am sure many of the long-standing members of the sports analyt
 
 --
 
-* A set of packages for loading and scraping sports data in R, Python, and Node.js with focus placed on play-by-play data.  
+* A set of packages for loading and scraping sports data in R, Python, and Node.js with focus placed on play-by-play data  
 &lt;a href="https://www.r-project.org/" target="_blank" alt="R"&gt; &lt;img src="https://www.vectorlogo.zone/logos/r-project/r-project-icon.svg" alt="R" width="40" height="40"/&gt; &lt;/a&gt;  + &lt;a href="https://pypi.org/user/saiemgilani/" alt="Saiem's Python Packages" target="_blank"&gt; &lt;img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/&gt; &lt;/a&gt; + &lt;a href="https://nodejs.org" target="_blank"&gt; &lt;img src="figures/nodejs.png" alt="nodejs" width="60" height="50"/&gt; &lt;/a&gt; 
 
 --
+
+* A set of corresponding data repositories which allow fast loading of the data for users and collectively form one of the largest open-source sports data resources in the public sphere 
 
 
 ---
@@ -283,12 +284,17 @@ wnba_pbp_df = sdv.wnba.load_wnba_pbp(seasons=2021)
 ```
 
 ---
-### You get it, but let me explain anyway
+### Function (naming) follows form
 
 * Function names indicate the data source.
   - if the function starts with `load_`, `build_`, or `update_`, the data is coming from the data repository
   - Otherwise, it'll be an abbreviation for the website supplying the data (i.e. `espn_`, `nba_`, `ncaa_`).
 
+--
+.pull-right[
+&lt;img src="https://raw.githubusercontent.com/saiemgilani/The_SportsDataverse_Initiative/main/figures/apiscraper.png" width="47%" /&gt;
+&lt;br&gt;
+]
 
 ---
 ### Thank you
