@@ -2,6 +2,13 @@
 title: "The SportsDataverse Initiative"
 author: "Saiem Gilani"
 date: "2021-11-06<br><br>Carnegie Mellon Sports Analytics Conference"
+opengraph:
+  image: 
+    src: "https://github.com/saiemgilani/The_SportsDataverse_Initiative/blob/main/figures/sdv-blue.png?raw=true"
+  twitter:
+    site: "@sportsdataverse"
+    card: summary_large_image
+    creator: "@saiemgilani"
 output:
   xaringan::moon_reader:
     nature: 
