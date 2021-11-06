@@ -181,6 +181,14 @@ blockquote {
   border-left: solid 5px #37478580;
   padding-left: 1em;
 }
+.split-left {
+  float: center;
+  width: 50%;
+}
+.split-right {
+  float: center;
+  width: 50%;
+}
 .remark-slide table {
   margin: auto;
   border-top: 1px solid #666;

@@ -338,15 +338,15 @@ wnba_pbp_df = sdv.wnba.load_wnba_pbp(seasons=2021)
 
 --
 
-.pull-left[
+.split-left[
 ```{r apidatastore-draw, eval = TRUE, out.width = "47%", echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/The_SportsDataverse_Initiative/main/figures/api-datastore.png")
+knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/The_SportsDataverse_Initiative/main/figures/api-scraper.png")
 ```
 <br>
 ]
-.pull-right[
+.split-right[
 ```{r apiscraper-draw, eval = TRUE, out.width = "47%", echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/The_SportsDataverse_Initiative/main/figures/api-scraper.png")
+knitr::include_graphics("https://raw.githubusercontent.com/saiemgilani/The_SportsDataverse_Initiative/main/figures/api-datastore.png")
 ```
 <br>
 ]
